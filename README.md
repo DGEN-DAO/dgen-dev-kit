@@ -25,6 +25,23 @@ For developers building games for DGEN DAO who want players to sign in with thei
 | Exporting the wallet's key, the SDK's wallet screens | **Do not work** on the current plan |
 | Linking an outside wallet (MetaMask, Rabby) to a player | **Not built.** Outside wallets are hidden in the sign-in window on purpose |
 
+## Existing players
+
+Your game already has players who signed up by email. To let one of them in with DGEN sign-in and keep their account:
+
+1. **Verify the token on your server** (see "Verifying the player on your server"). Take nothing from the browser.
+2. **For a Google or email login, take the `email` from the verified token**, lower-cased. Both logins prove the player owns that address: Google reports the address of the Google account they signed in to, and the email login only completes after they enter a code sent to that address. The token has no separate "verified" flag. The login type is what tells you, which is why your server must read it.
+3. **Find your existing player by that email**, compared lower-cased. Found: sign them in as that player. Not found: create a new player.
+4. **Attach the wallet from the token to that account**, with its login type. Add it to a list, and never replace one that is already there. The same person signing in with Google one day and email the next arrives with two different wallets. Both proved the same email, so both belong to the one account.
+
+Three things to get right:
+
+- **Discord cannot be matched this way.** A Discord login gives you a wallet and no email you can trust (the example verifier returns `email: null` for it). An existing player who arrives through Discord first looks like a new player. Tell existing players to use Google or email the first time, or let a player add Discord from inside an account they are already signed in to.
+- **Match only on addresses your own sign-up confirmed.** If your old sign-up accepted an email without confirming it, someone may have registered an address that is not theirs. Matching would put the real owner into an account that person set up and can still open with the old password. For those accounts, ask the player to confirm, or switch off the old password when the DGEN sign-in is attached.
+- **Refuse `@wallet.dgendao.com` addresses** (see "Email and Discord" below).
+
+What is tested: a real Google token carries the account's email, and dgendao.com matches Google and email logins to its own accounts by this email, live since 18 Nov 2026 (both checked by hand). We have not recorded a real email-login or Discord token field by field, so check both on your staging domain.
+
 ## The one thing to design around: one player, several wallets
 
 Each login method gives its own wallet, even for the same email address. Checked on 18 Nov 2026 with one person and one email address: Google gave one address, email code gave a different one. Discord is a third.
