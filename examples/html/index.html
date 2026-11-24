@@ -1,0 +1,33 @@
+<!doctype html>
+<!--
+  DGEN sign-in from a plain HTML/JS page. All the logic is in src/main.js.
+
+    npm ci
+    npm run dev       # http://localhost:5173 (the SDK starts and the window opens; sign-in is refused on localhost)
+    npm run build     # writes dist/, upload it anywhere static
+
+  Serve it from a domain on the DGEN sign-in project's allowed list (ask the DGEN DAO team). See the README.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DGEN sign-in (plain HTML/JS example)</title>
+    <style>
+      body { font-family: system-ui, sans-serif; background: #151421; color: #fff; display: grid; place-items: center; min-height: 100vh; margin: 0; }
+      main { width: min(400px, 90vw); text-align: center; }
+      button { width: 100%; min-height: 50px; border: 0; border-radius: 12px; background: #7834c7; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; }
+      button:disabled { opacity: 0.5; cursor: default; }
+      #status { min-height: 3em; color: rgba(255, 255, 255, 0.8); overflow-wrap: anywhere; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Sign in</h1>
+      <p id="status">Loading sign-in…</p>
+      <button id="signin" disabled>Sign in</button>
+      <p><small>Sign in with Google, Discord or email.</small></p>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

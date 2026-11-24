@@ -1,0 +1,28 @@
+{
+  "name": "dgen-signin-nextjs",
+  "private": true,
+  "version": "0.0.0",
+  "description": "DGEN sign-in in a Next.js (App Router) app: provider, sign-in page, and a server route that verifies the player.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@babel/runtime": "7.29.13",
+    "@noble/curves": "1.9.7",
+    "@noble/hashes": "1.8.0",
+    "@web3auth/modal": "11.4.3",
+    "jose": "6.2.15",
+    "next": "16.4.6",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "viem": "2.57.19"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "typescript": "5.9.3"
+  }
+}

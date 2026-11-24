@@ -1,0 +1,19 @@
+{
+  "name": "dgen-signin-node-verifier",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Verify a DGEN sign-in on a Node server. Same rules as the DGEN Hub.",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node test.mjs"
+  },
+  "dependencies": {
+    "@noble/curves": "1.9.7",
+    "@noble/hashes": "1.8.0",
+    "jose": "6.2.15"
+  }
+}
