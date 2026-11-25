@@ -34,12 +34,10 @@ Your game already has players who signed up by email. To let one of them in with
 3. **Find your existing player by that email**, compared lower-cased. Found: sign them in as that player. Not found: create a new player.
 4. **Attach the wallet from the token to that account**, with its login type. Add it to a list, and never replace one that is already there. The same person signing in with Google one day and email the next arrives with two different wallets. Both proved the same email, so both belong to the one account.
 
-Three things to get right:
+Two things to get right:
 
 - **Discord cannot be matched this way.** A Discord login gives you a wallet and no email you can trust (the example verifier returns `email: null` for it). An existing player who arrives through Discord first looks like a new player. Tell existing players to use Google or email the first time, or let a player add Discord from inside an account they are already signed in to.
 - **Match only on addresses your own sign-up confirmed.** If your old sign-up accepted an email without confirming it, someone may have registered an address that is not theirs. Matching would put the real owner into an account that person set up and can still open with the old password. For those accounts, ask the player to confirm, or switch off the old password when the DGEN sign-in is attached.
-- **Refuse `@wallet.dgendao.com` addresses** (see "Email and Discord" below).
-
 What is tested: a real Google token carries the account's email, and dgendao.com matches Google and email logins to its own accounts by this email, live since 18 Nov 2026 (both checked by hand). We have not recorded a real email-login or Discord token field by field, so check both on your staging domain.
 
 ## The one thing to design around: one player, several wallets
@@ -167,8 +165,6 @@ Use `examples/node-verifier/verify-identity.mjs` (plain JavaScript, Node 18+, de
 **4. Email and Discord.**
 - Google and email logins prove the player owns the token's `email`. You may match players by it.
 - **Discord is matched by wallet only.** Treat the email as absent for Discord, even when the token has one. Never look a player up by an empty email (that matches some other player with no email).
-- **Refuse any email ending in `@wallet.dgendao.com`.** DGEN uses that domain for placeholder addresses on accounts that have no real email. It is not a mailbox and proves nothing. The example verifier does not do this for you; add the check where you match players by email.
-
 What is tested and what is not: the rules above were checked with a real Google token from the live project. An email sign-in works on the live site (checked by hand on 23 Nov 2026). A real Discord sign-in has not been reported to us either way, and we have not recorded the claims of a real Discord token, so treat the Discord rules as "as designed" and test Discord yourself before you rely on it.
 
 ## What your players already have on dgendao.com
@@ -208,7 +204,7 @@ To be ready for both:
 1. Ask the DGEN DAO team to allow your domains. Check with the `curl` above.
 2. Use the Client ID, `sapphire_mainnet` and Base exactly as above, and the settings from an example. No `uiConfig`, no `farcaster`.
 3. Open your sign-in window in a browser with a wallet extension installed. It must show Google, Discord and email only.
-4. Verify the identity token on your server with the rules above (or `verify-identity.mjs`). Accept only Google, email and Discord. Refuse `@wallet.dgendao.com` emails.
+4. Verify the identity token on your server with the rules above (or `verify-identity.mjs`). Accept only Google, email and Discord.
 5. Keep your own players, with several wallets each (one per login method) and one primary wallet. Use email only for Google and email logins.
 6. Ask before reusing a leftover session; end the SDK session on log-out. Expect sessions to end after a day.
 7. Before release, sign in on your staging domain with Google, Discord and email, on a computer and on a phone. For one login, confirm the wallet address with the DGEN DAO team: the same login must give the same address in every DGEN game.
