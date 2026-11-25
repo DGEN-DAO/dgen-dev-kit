@@ -38,6 +38,7 @@ Two things to get right:
 
 - **Discord cannot be matched this way.** A Discord login gives you a wallet and no email you can trust (the example verifier returns `email: null` for it). An existing player who arrives through Discord first looks like a new player. Tell existing players to use Google or email the first time, or let a player add Discord from inside an account they are already signed in to.
 - **Match only on addresses your own sign-up confirmed.** If your old sign-up accepted an email without confirming it, someone may have registered an address that is not theirs. Matching would put the real owner into an account that person set up and can still open with the old password. For those accounts, ask the player to confirm, or switch off the old password when the DGEN sign-in is attached.
+
 What is tested: a real Google token carries the account's email, and dgendao.com matches Google and email logins to its own accounts by this email, live since 18 Nov 2026 (both checked by hand). We have not recorded a real email-login or Discord token field by field, so check both on your staging domain.
 
 ## The one thing to design around: one player, several wallets
@@ -165,6 +166,7 @@ Use `examples/node-verifier/verify-identity.mjs` (plain JavaScript, Node 18+, de
 **4. Email and Discord.**
 - Google and email logins prove the player owns the token's `email`. You may match players by it.
 - **Discord is matched by wallet only.** Treat the email as absent for Discord, even when the token has one. Never look a player up by an empty email (that matches some other player with no email).
+
 What is tested and what is not: the rules above were checked with a real Google token from the live project. An email sign-in works on the live site (checked by hand on 23 Nov 2026). A real Discord sign-in has not been reported to us either way, and we have not recorded the claims of a real Discord token, so treat the Discord rules as "as designed" and test Discord yourself before you rely on it.
 
 ## What your players already have on dgendao.com
