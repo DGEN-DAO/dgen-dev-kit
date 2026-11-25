@@ -67,7 +67,9 @@ const button = document.getElementById('signin');
 async function sendToServer() {
   status.textContent = 'Checking your sign-in…';
   const { idToken } = await web3auth.getAuthTokenInfo();
-  const [address] = await web3auth.provider.request({ method: 'eth_accounts' });
+  // In SDK 11 the wallet is at connection.ethereumProvider. (There is no web3auth.provider any more.)
+  const wallet = web3auth.connection?.ethereumProvider;
+  const [address] = wallet ? await wallet.request({ method: 'eth_accounts' }) : [];
   // Your server verifies the token and decides who this is. `address` is only a cross-check.
   const res = await fetch('/api/session', {
     method: 'POST',
