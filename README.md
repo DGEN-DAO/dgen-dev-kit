@@ -1,5 +1,7 @@
 # DGEN sign-in: developer kit
 
+> **Version 2 is coming, and it is simpler.** Your game will send players to DGEN to sign in, and your server will be told who they are: no SDK to load, no token to check, no domain to get allowed. This page describes version 1. **If you have not integrated yet, please wait for version 2** rather than asking for your domain to be added. Questions: DM `@Tjbonitz` on the DGEN DAO Discord.
+
 For developers building games for DGEN DAO who want players to sign in with their DGEN sign-in: the same Google, Discord or email login, and the same wallet, they already use on dgendao.com. Your game can be built on any stack. The examples cover Next.js (React), a plain HTML/JS page, and a Node server.
 
 **Checked against what is live on 23 Nov 2026.** The examples were built and run again, on their own, on 24 Nov 2026. Where something was not tested, it says so.
